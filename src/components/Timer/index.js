@@ -1,7 +1,7 @@
 import React from "react";
 
 const Timer = (props) => {
-  return <div>Remaining Time: 10 minutes 10 seconds</div>;
+  return <div>15:8 time</div>;
 };
 
 export default Timer;

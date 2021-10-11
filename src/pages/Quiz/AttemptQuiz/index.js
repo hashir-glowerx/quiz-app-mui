@@ -1,13 +1,7 @@
 import React from "react";
-import Timer from "../../../components/Timer";
-
+import Main from "../../../components/Main";
 const AttemptQuiz = (props) => {
-  return (
-    <div>
-      <h2>Attempt Quiz Page</h2>
-      <Timer />
-    </div>
-  );
+  return <Main />;
 };
 
 export default AttemptQuiz;
