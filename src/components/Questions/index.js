@@ -13,8 +13,19 @@ const Question = ({
   data: { question, category, correct_answer, incorrect_answer, file, type },
   nextQuestion,
 }) => {
+  const [selectedValue, setSelectedValue] = React.useState([]);
   const handleonNextQuestion = () => {
-    nextQuestion();
+    console.log(selectedValue);
+    nextQuestion(selectedValue);
+    setSelectedValue([]);
+  };
+  const handleChange = (e) => {
+    setSelectedValue(e.target.value);
+  };
+  const handleChangeCheckBox = (e) => {
+    let data = selectedValue;
+    data.push(e.target.value);
+    setSelectedValue(data);
   };
   const renderQuestions = () => {
     return (
@@ -26,7 +37,7 @@ const Question = ({
   const renderCategory = () => {
     return (
       <>
-        {type === "Mcq"
+        {type === "Checkbox"
           ? correct_answer.map((ind) => {
               return (
                 <>
@@ -35,7 +46,8 @@ const Question = ({
                     color="text.secondary"
                     component="div"
                   >
-                    <Checkbox /> {ind}
+                    <Checkbox value={ind} onChange={handleChangeCheckBox} />{" "}
+                    {ind}
                   </Typography>
                 </>
               );
@@ -47,12 +59,17 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Radio /> {ind}
+                  <Radio
+                    checked={selectedValue === ind}
+                    onChange={handleChange}
+                    value={ind}
+                  />{" "}
+                  {ind}
                 </Typography>
               );
             })}
 
-        {type === "Mcq"
+        {type === "Checkbox"
           ? incorrect_answer.map((ind) => {
               return (
                 <Typography
@@ -60,7 +77,7 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Checkbox /> {ind}
+                  <Checkbox value={ind} onChange={handleChangeCheckBox} /> {ind}
                 </Typography>
               );
             })
@@ -71,11 +88,18 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Radio /> {ind}
+                  <Radio
+                    checked={selectedValue === ind}
+                    onChange={handleChange}
+                    value={ind}
+                  />{" "}
+                  {ind}
                 </Typography>
               );
             })}
-        <Button onClick={(e) => handleonNextQuestion()}>Next</Button>
+        <Button variant="contained" onClick={(e) => handleonNextQuestion()}>
+          Next
+        </Button>
       </>
     );
   };
@@ -83,7 +107,7 @@ const Question = ({
     return (
       <>
         <img src={file} alt="imgQuestion" />
-        {type === "Mcq"
+        {type === "Checkbox"
           ? correct_answer.map((ind) => {
               return (
                 <Typography
@@ -91,7 +115,7 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Checkbox /> {ind}
+                  <Checkbox name={ind} onChange={handleChangeCheckBox} /> {ind}
                 </Typography>
               );
             })
@@ -102,12 +126,17 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Radio /> {ind}
+                  <Radio
+                    checked={selectedValue === ind}
+                    onChange={handleChange}
+                    value={ind}
+                  />{" "}
+                  {ind}
                 </Typography>
               );
             })}
 
-        {type === "Mcq"
+        {type === "Checkbox"
           ? incorrect_answer.map((ind) => {
               return (
                 <Typography
@@ -115,7 +144,7 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Checkbox /> {ind}
+                  <Checkbox name={ind} onChange={handleChangeCheckBox} /> {ind}
                 </Typography>
               );
             })
@@ -126,11 +155,18 @@ const Question = ({
                   color="text.secondary"
                   component="div"
                 >
-                  <Radio /> {ind}
+                  <Radio
+                    checked={selectedValue === ind}
+                    onChange={handleChange}
+                    value={ind}
+                  />{" "}
+                  {ind}
                 </Typography>
               );
             })}
-        <Button onClick={(e) => handleonNextQuestion()}>Next</Button>
+        <Button variant="contained" onClick={(e) => handleonNextQuestion()}>
+          Next
+        </Button>
       </>
     );
   };

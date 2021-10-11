@@ -6,10 +6,21 @@ import { QuizData } from "../../data/quiz";
 
 const Main = () => {
   let [dataIndex, setDataIndex] = useState(0);
-
-  const handlondataIndex = ()=>{
-    setDataIndex(dataIndex++)
+  const [answer, setAnswer] = useState(QuizData);
+  
+  const handlondataIndex = (val)=>{
+ if(answer.length > 0)
+ {
+   alert('game over')
+ }
+    if(answer.result[dataIndex].correct_answer.toString() === val.toString())
+    alert(`Your Answer is correct ${val}`)
+    else{
+      alert(`Your Answer is incorrect ${val}, Correct Answer is  ${answer.result[dataIndex].correct_answer}`)
+    }
+    setDataIndex(dataIndex+1)
   }
+
   return (
     <Grid
       item={true}
@@ -30,7 +41,7 @@ const Main = () => {
           Attempt Quiz Page
         </Typography>
       </Card>
-      <Question data={QuizData.result[dataIndex]} nextQuestion={handlondataIndex} />
+      <Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />
     </Grid>
   );
 };
