@@ -43,8 +43,8 @@ const Question = ({
         {type === "Checkbox"
           ? correct_answer.map((ind) => {
               return (
-                <>
                   <Typography
+                  key = {ind}
                     variant="subtitle1"
                     color="text.secondary"
                     component="div"
@@ -52,7 +52,6 @@ const Question = ({
                     <Checkbox value={ind} onChange={handleChangeCheckBox} />{" "}
                     {ind}
                   </Typography>
-                </>
               );
             })
           : correct_answer.map((ind) => {
@@ -177,12 +176,10 @@ const Question = ({
     <Card sx={{ display: "flex" }}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         {category === "Text" ? (
-          <>
             <CardContent sx={{ flex: "1 0 auto" }}>
               {renderQuestions()}
               {renderCategory()}
             </CardContent>
-          </>
         ) : (
           <>
             {renderQuestions()}

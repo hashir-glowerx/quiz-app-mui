@@ -4,13 +4,14 @@ import { Card, Typography, Grid } from "@mui/material";
 import Question from "../Questions";
 import { QuizData } from "../../data/quiz";
 import EndGame from '../EndGame/index'
+import LinearWithValueLabel from '../ProgressBar/index'
 const Main = () => {
   let [dataIndex, setDataIndex] = useState(0);
   const [answer, setAnswer] = useState(QuizData);
   const [score, setScore] = useState(0);
   const [sec, setSec] = React.useState(60);
   const [minutes, setMinutes] = React.useState(answer.maxTime);
-
+ const [progress, setprogress] = useState(0)
   const handleChangeOnTime = ()=>{
     setSec((prevsec) => (prevsec <= 0 ? 60 : prevsec - 1));
     if(sec===0)
@@ -23,6 +24,7 @@ const Main = () => {
     setScore(score+1);
     
     setDataIndex(dataIndex+1)
+    setprogress(progress+10);
   }
 
   return (
@@ -44,6 +46,7 @@ const Main = () => {
         >
           Attempt Quiz Page
         </Typography>
+        <LinearWithValueLabel value={dataIndex} progress={progress}/>
       </Card>
       {minutes>0||sec<0 ?<>{dataIndex<answer.result.length?(<Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />):(<EndGame result={score}/>)}</>:(<EndGame result={score}/>)}
      
