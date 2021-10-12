@@ -8,7 +8,15 @@ const Main = () => {
   let [dataIndex, setDataIndex] = useState(0);
   const [answer, setAnswer] = useState(QuizData);
   const [score, setScore] = useState(0);
-  
+  const [sec, setSec] = React.useState(60);
+  const [minutes, setMinutes] = React.useState(answer.maxTime);
+
+  const handleChangeOnTime = ()=>{
+    setSec((prevsec) => (prevsec <= 0 ? 60 : prevsec - 1));
+    if(sec===0)
+    {setMinutes((prevminutes) => (prevminutes <= 0 ? minutes : prevminutes - 1));}
+  }
+
   const handlondataIndex = (val)=>{
 
     if(answer.result[dataIndex].correct_answer.toString() === val.toString())
@@ -27,7 +35,7 @@ const Main = () => {
       style={{ margin: "0 auto" }}
     >
       <Card className="card-full-width">
-        <Timer />
+        <Timer minutes={minutes} sec={sec} handleTime={handleChangeOnTime}/>
         <Typography
           gutterBottom
           variant="h5"
@@ -37,8 +45,8 @@ const Main = () => {
           Attempt Quiz Page
         </Typography>
       </Card>
-      {dataIndex<answer.result.length?(<Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />):(<EndGame result={score}/>)}
-      
+      {minutes>0||sec<0 ?<>{dataIndex<answer.result.length?(<Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />):(<EndGame result={score}/>)}</>:(<EndGame result={score}/>)}
+     
     </Grid>
   );
 };
