@@ -15,7 +15,6 @@ const Question = ({
 }) => {
   const [selectedValue, setSelectedValue] = React.useState([]);
   const handleonNextQuestion = () => {
-    console.log(selectedValue);
     nextQuestion(selectedValue);
     setSelectedValue([]);
   };
@@ -175,10 +174,10 @@ const Question = ({
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         {category === "Text" ? (
           <>
-            <CardContent sx={{ flex: "1 0 auto" }}>
+            <CardContent sx={{ flex: "1 0 auto" }} >
               {renderQuestions()}
-
               {renderCategory()}
+                        
             </CardContent>
           </>
         ) : (

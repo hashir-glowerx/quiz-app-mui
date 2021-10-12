@@ -3,21 +3,17 @@ import Timer from "../Timer";
 import { Card, Typography, Grid } from "@mui/material";
 import Question from "../Questions";
 import { QuizData } from "../../data/quiz";
-
+import EndGame from '../EndGame/index'
 const Main = () => {
   let [dataIndex, setDataIndex] = useState(0);
   const [answer, setAnswer] = useState(QuizData);
+  const [score, setScore] = useState(0);
   
   const handlondataIndex = (val)=>{
- if(answer.length > 0)
- {
-   alert('game over')
- }
+
     if(answer.result[dataIndex].correct_answer.toString() === val.toString())
-    alert(`Your Answer is correct ${val}`)
-    else{
-      alert(`Your Answer is incorrect ${val}, Correct Answer is  ${answer.result[dataIndex].correct_answer}`)
-    }
+    setScore(score+1);
+    
     setDataIndex(dataIndex+1)
   }
 
@@ -41,7 +37,8 @@ const Main = () => {
           Attempt Quiz Page
         </Typography>
       </Card>
-      <Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />
+      {dataIndex<answer.result.length?(<Question data={answer.result[dataIndex]} nextQuestion={handlondataIndex} />):(<EndGame result={score}/>)}
+      
     </Grid>
   );
 };
